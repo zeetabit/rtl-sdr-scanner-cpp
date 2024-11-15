@@ -5,10 +5,12 @@ project(auto_sdr LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+link_directories(/usr/local/lib)
+
 # Add the local Find*.cmake scripts
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -Wno-missing-braces")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -Wpedantic -Wno-missing-braces -Wno-deprecated-declarations -Wno-unused-private-field")
 
 find_package(spdlog REQUIRED)
 find_package(RTLSDR REQUIRED)
@@ -61,7 +63,7 @@ TARGET_LINK_LIBRARIES(auto_sdr_libs
     liquid
     mosquitto
     hackrf
-    stdc++fs
+    # stdc++fs
     nlohmann_json::nlohmann_json
 )
 

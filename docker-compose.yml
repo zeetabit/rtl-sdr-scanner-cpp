@@ -1,6 +1,6 @@
 services:
   sdr-broker:
-    image: eclipse-mosquitto:latest
+    image: eclipse-mosquitto:2.0.15
     restart: on-failure
     command:
       - /bin/sh
@@ -10,19 +10,21 @@ services:
         echo "allow_anonymous false" >> /mosquitto/config/mosquitto.conf
         echo "password_file /mosquitto/config/password.txt" >> /mosquitto/config/mosquitto.conf
         echo "admin:password" > /mosquitto/config/password.txt
-        mosquitto_passwd -U /mosquitto/config/password.txt
+        mosquitto_passwd -c -b /mosquitto/config/password.txt admin password
         mosquitto -c /mosquitto/config/mosquitto.conf
-  sdr-scanner:
-    image: shajen/sdr-scanner:latest
-    restart: on-failure
-    depends_on:
-      - sdr-broker
-    volumes:
-      - /etc/timezone:/etc/timezone:ro
-      - /etc/localtime:/etc/localtime:ro
-      - ./config.json:/config.json
-    devices:
-      - /dev/bus/usb:/dev/bus/usb
+    ports:
+      - 1883:1883
+  # sdr-scanner:
+  #   image: shajen/sdr-scanner:latest
+  #   restart: on-failure
+  #   depends_on:
+  #     - sdr-broker
+  #   volumes:
+  #     - /etc/timezone:/etc/timezone:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - ./config.json:/config.json
+  #   devices:
+  #     - /dev/bus/usb:/dev/bus/usb
   sdr-monitor-setup:
     image: shajen/sdr-monitor:latest
     restart: on-failure

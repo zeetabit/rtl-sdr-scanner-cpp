@@ -4,8 +4,8 @@
       "device_serial": "auto",
       "ranges": [
         {
-          "start": 144000000,
-          "stop": 146000000,
+          "start": 7000000,
+          "stop":  9000000,
           "sample_rate": 2048000
         }
       ]
@@ -16,7 +16,8 @@
     "rtl_sdr": {
       "ppm_error": 0,
       "tuner_gain": 0.0,
-      "offset": 0
+      "offset": 0,
+      "bias_tee": true
     },
     "hack_rf": {
       "lna_gain": 0,
@@ -44,7 +45,7 @@
   "cores": 4,
   "memory_limit_mb": 0,
   "mqtt": {
-    "hostname": "sdr-broker",
+    "hostname": "localhost",
     "port": 1883,
     "username": "admin",
     "password": "password"

@@ -103,6 +103,10 @@ void RtlSdrDevice::open() {
   if (m_config.rtlSdrPpm() != 0 && rtlsdr_set_freq_correction(m_device, m_config.rtlSdrPpm()) != 0) {
     throw std::runtime_error("can not set tuner ppm");
   }
+
+  if (m_config.rtlSdrBiasT() != 0 && rtlsdr_set_bias_tee(m_device, m_config.rtlSdrBiasT()) != 0) {
+    throw std::runtime_error("can not set bias tee");
+  }
 }
 
 void RtlSdrDevice::close() {

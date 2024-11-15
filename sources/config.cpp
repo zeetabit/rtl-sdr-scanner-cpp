@@ -170,6 +170,7 @@ Config::Config(const std::string &path, const std::string &config)
       m_rtlSdrPpm(readKey(m_json, {"devices", "rtl_sdr", "ppm_error"}, 0)),
       m_rtlSdrGain(readKey(m_json, {"devices", "rtl_sdr", "tuner_gain"}, 0.0)),
       m_rtlSdrRadioOffset(readKey(m_json, {"devices", "rtl_sdr", "offset"}, 0)),
+      m_rtlSdrBiasT(readKey(m_json, {"devices", "rtl_sdr", "bias_tee"}, false)),
       m_hackRfLnaGain(readKey(m_json, {"devices", "hack_rf", "lna_gain"}, 0)),
       m_hackRfVgaGain(readKey(m_json, {"devices", "hack_rf", "vga_gain"}, 0)),
       m_hackRfRadioOffset(readKey(m_json, {"devices", "hack_rf", "offset"}, 0)),
@@ -212,6 +213,7 @@ std::string Config::logDir() const { return m_logsDirectory; }
 uint32_t Config::rtlSdrPpm() const { return m_rtlSdrPpm; }
 float Config::rtlSdrGain() const { return m_rtlSdrGain; }
 int32_t Config::rtlSdrOffset() const { return m_rtlSdrRadioOffset; }
+bool Config::rtlSdrBiasT() const { return m_rtlSdrBiasT; }
 
 uint32_t Config::hackRfLnaGain() const { return m_hackRfLnaGain; }
 uint32_t Config::hackRfVgaGain() const { return m_hackRfVgaGain; }

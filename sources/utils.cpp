@@ -2,10 +2,13 @@
 
 #include <liquid/liquid.h>
 #include <logger.h>
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <math.h>
 #include <string.h>
 #include <sys/resource.h>
 #include <sys/time.h>
+#include <sys/syscall.h>
 #include <unistd.h>
 
 #include <algorithm>
@@ -14,8 +17,20 @@
 #include <stdexcept>
 #include <thread>
 
+#ifdef SYS_gettid
+  pid_t tid = syscall(SYS_gettid);
+#else
+  #error "SYS_gettid unavailable on this system"
+#endif
+
+#define gettid() ((pid_t)syscall(SYS_gettid))
+
+#ifndef M_PIf32
+  #define M_PIf32	 3.141592653589793238462643383279502884f /* pi */
+#endif
+
 void setThreadParams(const std::string &name, PRIORITY priority) {
-  pthread_setname_np(pthread_self(), name.c_str());
+  pthread_setname_np(name.c_str());
   setpriority(PRIO_PROCESS, 0, static_cast<int>(priority));
 }
 

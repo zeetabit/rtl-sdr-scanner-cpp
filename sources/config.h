@@ -52,6 +52,7 @@ class Config {
   uint32_t rtlSdrPpm() const;
   float rtlSdrGain() const;
   int32_t rtlSdrOffset() const;
+  bool rtlSdrBiasT() const;
 
   uint32_t hackRfLnaGain() const;
   uint32_t hackRfVgaGain() const;
@@ -92,6 +93,7 @@ class Config {
   const uint32_t m_rtlSdrPpm;
   const float m_rtlSdrGain;
   const int32_t m_rtlSdrRadioOffset;
+  const bool m_rtlSdrBiasT;
 
   const uint32_t m_hackRfLnaGain;
   const uint32_t m_hackRfVgaGain;
